@@ -14,7 +14,8 @@ y = df['species']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
 st.sidebar.title('Classifiers')
-classifier = st.sidebar.selectbox('Select Classifier', ('KNN', 'SVM'))
+classifier = st.sidebar.selectbox('Select Classifier', ('KNN', 'SVM', 'DT', 'RF', 'NN'))
+k = st.sidebar.slider('K', 1, 120, 3)
 if classifier == 'KNN':
   knn = KNeighborsClassifier(n_neighbors=3)
   knn.fit(x_train, y_train)
@@ -24,6 +25,24 @@ if classifier == 'KNN':
 if classifier == 'SVM':
   svm = SVC()
   svm.fit(x_train, y_train)
+  y_pred = svm.predict(x_test)
+  acc = accuracy_score(y_test, y_pred)
+  st.write(acc)
+if classifier == 'DT':
+  dt = DecisionTreeClassifier()
+  dt.fit(x_train, y_train)
+  y_pred = svm.predict(x_test)
+  acc = accuracy_score(y_test, y_pred)
+  st.write(acc)
+if classifier == 'RF':
+  rf = RandomForestClassifier()
+  rf.fit(x_train, y_train)
+  y_pred = svm.predict(x_test)
+  acc = accuracy_score(y_test, y_pred)
+  st.write(acc)
+if classifier == 'NN':
+  nn = MLPClassifier()
+  nn.fit(x_train, y_train)
   y_pred = svm.predict(x_test)
   acc = accuracy_score(y_test, y_pred)
   st.write(acc)
